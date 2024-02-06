@@ -1,0 +1,40 @@
+{
+    "name": "creative2/laravel-umami",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Creative2\\Umami\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Robert Davies",
+            "email": "robert@creative2.com"
+        }
+    ],
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "require": {
+        "php": "^8.1",
+        "illuminate/support": "^9.0|^10",
+        "illuminate/http": "^9.0|^10"
+    },
+    "require-dev": {
+        "pestphp/pest": "^2.33"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Creative2\\Umami\\UmamiServiceProvider"
+            ],
+            "aliases": {
+                "Umami": "Creative2\\Umami\\Facades\\Umami",
+                "UmamiQuery": "Creative2\\Umami\\Facades\\UmamiApi"
+            }
+        }
+    }
+}
