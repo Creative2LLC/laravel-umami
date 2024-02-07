@@ -20,8 +20,7 @@ class Websites extends Resource
                 'domain' => null,
             ],
             'update' => [
-                'name' => null,
-                'domain' => null,
+                //
             ],
             'events' => [
                 'startAt' => null,
@@ -30,15 +29,20 @@ class Websites extends Resource
                 'timezone' => config('app.timezone'),
             ],
             'pageviews' => [
+                'startAt' => null,
+                'endAt' => null,
                 'unit' => 'day',
                 'timezone' => config('app.timezone'),
             ],
             'metrics' => [
-                'unit' => 'day',
+                'startAt' => null,
+                'endAt' => null,
                 'timezone' => config('app.timezone'),
+                'type' => 'url',
             ],
             'stats' => [
-                'unit' => 'day',
+                'startAt' => null,
+                'endAt' => null,
                 'timezone' => config('app.timezone'),
             ],
         ];
