@@ -6,6 +6,8 @@ interface ResourceInterface
 {
     public function getPath(mixed ...$params): string;
 
+    public function getData(string $action, array $data): array;
+
     public function all(array $data = []): ?array;
 
     public function get(string $id): ?array;
