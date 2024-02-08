@@ -2,30 +2,29 @@
 
 namespace Creative2\Umami;
 
-use Creative2\Umami\Classes\Resources\Events;
+use Creative2\Umami\Classes\Resources\EventData;
 use Creative2\Umami\Classes\Resources\Teams;
 use Creative2\Umami\Classes\Resources\Users;
 use Creative2\Umami\Classes\Resources\Websites;
-use Creative2\Umami\Contracts\ResourceInterface;
 
 class Umami
 {
-    public function events(): ResourceInterface
+    public function eventData(): EventData
     {
-        return app(Events::class);
+        return app(EventData::class);
     }
 
-    public function teams(): ResourceInterface
+    public function teams(): Teams
     {
         return app(Teams::class);
     }
 
-    public function users(): ResourceInterface
+    public function users(): Users
     {
         return app(Users::class);
     }
 
-    public function websites(): ResourceInterface
+    public function websites(): Websites
     {
         return app(Websites::class);
     }

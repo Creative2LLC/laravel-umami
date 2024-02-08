@@ -2,7 +2,7 @@
 
 namespace Creative2\Umami\Contracts;
 
-interface ResourceInterface
+interface RestfulInterface
 {
     public function all(array $data = []): ?array;
 

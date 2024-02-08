@@ -3,24 +3,20 @@
 namespace Creative2\Umami\Classes\Resources;
 
 use Creative2\Umami\Classes\Abstract\Resource;
+use Creative2\Umami\Concerns\Restful;
+use Creative2\Umami\Contracts\RestfulInterface;
 use Creative2\Umami\Facades\UmamiApi;
 
-class Websites extends Resource
+class Websites extends Resource implements RestfulInterface
 {
+    use Restful;
+
     protected static function getDefaultData(): array
     {
         return [
-            'all' => [
-                'pageSize' => 10,
-                'page' => 1,
-                'orderBy' => 'createdAt',
-            ],
             'create' => [
                 'name' => null,
                 'domain' => null,
-            ],
-            'update' => [
-                //
             ],
             'events' => [
                 'startAt' => null,
@@ -60,21 +56,21 @@ class Websites extends Resource
 
     public function events(string $id, array $data): ?array
     {
-        return UmamiApi::get($this->getPath($id, 'events'), $this->getData('events', $data))->json();
+        return UmamiApi::get($this->getPath($id, 'events'), $this->getData($data, 'events'))->json();
     }
 
     public function pagevViews(string $id, array $data): ?array
     {
-        return UmamiApi::get($this->getPath($id, 'pageviews'), $this->getData('pageviews', $data))->json();
+        return UmamiApi::get($this->getPath($id, 'pageviews'), $this->getData($data, 'pageviews'))->json();
     }
 
     public function metrics(string $id, array $data): ?array
     {
-        return UmamiApi::get($this->getPath($id, 'metrics'), $this->getData('metrics', $data))->json();
+        return UmamiApi::get($this->getPath($id, 'metrics'), $this->getData($data, 'metrics'))->json();
     }
 
     public function stats(string $id, array $data): ?array
     {
-        return UmamiApi::get($this->getPath($id, 'stats'), $this->getData('stats', $data))->json();
+        return UmamiApi::get($this->getPath($id, 'stats'), $this->getData($data, 'stats'))->json();
     }
 }
