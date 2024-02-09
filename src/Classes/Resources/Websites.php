@@ -14,6 +14,11 @@ class Websites extends Resource implements RestfulInterface
     protected static function getDefaultData(): array
     {
         return [
+            'all' => [
+                'pageSize' => 100,
+                'page' => 1,
+                'orderBy' => 'createdAt',
+            ],
             'create' => [
                 'name' => null,
                 'domain' => null,

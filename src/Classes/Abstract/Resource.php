@@ -10,14 +10,6 @@ abstract class Resource
 {
     private string $path;
 
-    private array $defaultData = [
-        'all' => [
-            'pageSize' => 100,
-            'page' => 1,
-            'orderBy' => 'createdAt',
-        ],
-    ];
-
     protected static function getRootPath(): string
     {
         return str(class_basename(static::class))->snake('-');
@@ -45,7 +37,6 @@ abstract class Resource
     protected function getData(array $data, string $action): array
     {
         $sanitizedData = [
-            ...$this->defaultData[$action] ?? [],
             ...static::getDefaultData()[$action] ?? [],
             ...$data,
         ];

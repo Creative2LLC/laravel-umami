@@ -14,6 +14,11 @@ class Users extends Resource implements RestfulInterface
     protected static function getDefaultData(): array
     {
         return [
+            'all' => [
+                'pageSize' => 100,
+                'page' => 1,
+                'orderBy' => 'createdAt',
+            ],
             'create' => [
                 'username' => null,
                 'password' => null,
@@ -25,6 +30,11 @@ class Users extends Resource implements RestfulInterface
                 'orderBy' => 'createdAt',
             ],
         ];
+    }
+
+    public function all(array $data = []): ?array
+    {
+        return UmamiApi::get('admin/users', $this->getData($data, 'all'))->json();
     }
 
     public function websites(string $id, array $data): ?array

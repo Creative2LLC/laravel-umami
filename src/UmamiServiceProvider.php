@@ -3,6 +3,7 @@
 namespace Creative2\Umami;
 
 use Creative2\Umami\Classes\Resources\EventData;
+use Creative2\Umami\Classes\Resources\Reports;
 use Creative2\Umami\Classes\Resources\Teams;
 use Creative2\Umami\Classes\Resources\Users;
 use Creative2\Umami\Classes\Resources\Websites;
@@ -22,6 +23,10 @@ class UmamiServiceProvider extends ServiceProvider
 
         $this->app->singleton(EventData::class, function() {
             return new EventData();
+        });
+
+        $this->app->singleton(Reports::class, function() {
+            return new Reports();
         });
 
         $this->app->singleton(Teams::class, function() {
