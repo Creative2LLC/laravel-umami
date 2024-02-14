@@ -2,72 +2,12 @@
 
 namespace Creative2\Umami;
 
-use Creative2\Umami\Contracts\ApiInterface;
-use Illuminate\Http\Client\Response;
-use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Facade;
 
-
-class UmamiApi implements ApiInterface
+class UmamiApi extends Facade
 {
-    protected bool $throwHttpExceptions;
-
-    protected string $url;
-
-    protected string $username;
-
-    protected string $password;
-
-    protected string $authToken;
-
-    public function __construct() {
-        $this->throwHttpExceptions = config('umami.http.exceptions');
-        $this->url = $this->getConfig('account.url');
-        $this->username = $this->getConfig('account.username');
-        $this->password = $this->getConfig('account.password');
-        $this->authToken = $this->getAuthToken();
-    }
-
-    protected function getConfig(string $key)
+    protected static function getFacadeAccessor()
     {
-        $configValue = config('umami.'.$key);
-
-        abort_if(is_null($configValue), $key === 'account.url' ? 404 : 401, 'Umami not configured.');
-
-        return $configValue;
-    }
-
-    protected function getAuthToken(): ?string
-    {
-        return $this->post('/auth/login', [
-            'username' => $this->username,
-            'password' => $this->password,
-        ])->json('token');
-    }
-
-    public function get(string $endpoint, array $data = []): Response
-    {
-        return $this->sendRequest('get', $endpoint, $data);
-    }
-
-    public function post(string $endpoint, array $data = []): Response
-    {
-        return $this->sendRequest('post', $endpoint, $data);
-    }
-
-    public function put(string $endpoint, array $data = []): Response
-    {
-        return $this->sendRequest('put', $endpoint, $data);
-    }
-
-    public function delete(string $endpoint): Response
-    {
-        return $this->sendRequest('delete', $endpoint, []);
-    }
-
-    protected function sendRequest(string $method, string $endpoint, array $data): Response
-    {
-        return (! empty($this->authToken) ? Http::withToken($this->authToken) : Http::getFacadeRoot())
-            ->{$method}($this->url.str($endpoint)->start('/'), $data)
-            ->throwIf($this->throwHttpExceptions);
+        return \Creative2\Umami\Classes\Services\UmamiApi::class;
     }
 }

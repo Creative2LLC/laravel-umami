@@ -11,16 +11,25 @@ use Illuminate\Support\ServiceProvider;
 
 class UmamiServiceProvider extends ServiceProvider
 {
-    private static $configPath = __DIR__.'/../config/umami.php';
-
-    public function boot()
+    public function register()
     {
-        $this->mergeConfigFrom(self::$configPath, 'umami');
+        $this->registerConfig();
+        $this->registerSingletons();
+    }
+
+    protected function registerConfig()
+    {
+        $configPath = __DIR__.'/../config/umami.php';
+
+        $this->mergeConfigFrom($configPath, 'umami');
 
         $this->publishes([
-            self::$configPath => config_path('umami.php')
+            $configPath => config_path('umami.php')
         ], 'creative2-umami-config');
+    }
 
+    protected function registerSingletons()
+    {
         $this->app->singleton(EventData::class, function() {
             return new EventData();
         });

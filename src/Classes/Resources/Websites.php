@@ -5,7 +5,7 @@ namespace Creative2\Umami\Classes\Resources;
 use Creative2\Umami\Classes\Abstract\Resource;
 use Creative2\Umami\Concerns\Restful;
 use Creative2\Umami\Contracts\RestfulInterface;
-use Creative2\Umami\Facades\UmamiApi;
+use Creative2\Umami\UmamiApi;
 
 class Websites extends Resource implements RestfulInterface
 {
@@ -64,7 +64,7 @@ class Websites extends Resource implements RestfulInterface
         return UmamiApi::get($this->getPath($id, 'events'), $this->getData($data, 'events'))->json();
     }
 
-    public function pagevViews(string $id, array $data): ?array
+    public function pageViews(string $id, array $data): ?array
     {
         return UmamiApi::get($this->getPath($id, 'pageviews'), $this->getData($data, 'pageviews'))->json();
     }

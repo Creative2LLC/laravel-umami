@@ -56,9 +56,9 @@ abstract class Resource
         return $sanitizedData;
     }
 
-    private function formatDateTime(string | CarbonInterface $dateTime): int
+    private function formatDateTime(CarbonInterface|string|int $dateTime): int
     {
-        if (is_string($dateTime)) {
+        if (is_numeric($dateTime)) {
             $dateTime = Carbon::parse($dateTime);
         }
 

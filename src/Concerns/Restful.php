@@ -2,7 +2,7 @@
 
 namespace Creative2\Umami\Concerns;
 
-use Creative2\Umami\Facades\UmamiApi;
+use Creative2\Umami\UmamiApi;
 
 trait Restful
 {
