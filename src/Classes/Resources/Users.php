@@ -17,7 +17,7 @@ class Users extends Resource implements RestfulInterface
             'all' => [
                 'pageSize' => 100,
                 'page' => 1,
-                'orderBy' => 'createdAt',
+                'orderBy' => 'username',
             ],
             'create' => [
                 'username' => null,
@@ -27,7 +27,12 @@ class Users extends Resource implements RestfulInterface
             'websites' => [
                 'pageSize' => 10,
                 'page' => 1,
-                'orderBy' => 'createdAt',
+                'orderBy' => 'name',
+            ],
+            'teams' => [
+                'pageSize' => 10,
+                'page' => 1,
+                'orderBy' => 'name',
             ],
         ];
     }
@@ -37,8 +42,13 @@ class Users extends Resource implements RestfulInterface
         return UmamiApi::get('admin/users', $this->getData($data, 'all'))->json();
     }
 
-    public function websites(string $id, array $data): ?array
+    public function websites(string $id, array $data = []): ?array
     {
         return UmamiApi::get($this->getPath($id, 'websites'), $this->getData($data, 'websites'))->json();
+    }
+
+    public function teams(string $id, array $data = []): ?array
+    {
+        return UmamiApi::get($this->getPath($id, 'teams'), $this->getData($data, 'teams'))->json();
     }
 }

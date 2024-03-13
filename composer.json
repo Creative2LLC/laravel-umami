@@ -31,11 +31,7 @@
         "laravel": {
             "providers": [
                 "Creative2\\Umami\\UmamiServiceProvider"
-            ],
-            "aliases": {
-                "Umami": "Creative2\\Umami\\Facades\\Umami",
-                "UmamiQuery": "Creative2\\Umami\\Facades\\UmamiApi"
-            }
+            ]
         }
     }
 }

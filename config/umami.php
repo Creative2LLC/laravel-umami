@@ -8,5 +8,6 @@ return [
     ],
     'http' => [
         'exceptions' => env('UMAMI_HTTP_EXCEPTIONS', false),
+        'user_agent' => env('UMAMI_HTTP_USER_AGENT', 'Mozilla/5.0 (Mobile)'),
     ],
 ];

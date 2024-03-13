@@ -17,7 +17,7 @@ class Websites extends Resource implements RestfulInterface
             'all' => [
                 'pageSize' => 100,
                 'page' => 1,
-                'orderBy' => 'createdAt',
+                'orderBy' => 'name',
             ],
             'create' => [
                 'name' => null,

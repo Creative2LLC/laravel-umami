@@ -17,26 +17,67 @@ class Teams extends Resource implements RestfulInterface
             'all' => [
                 'pageSize' => 100,
                 'page' => 1,
-                'orderBy' => 'createdAt',
+                'orderBy' => 'name',
             ],
             'create' => [
                 'name' => null,
             ],
-            'users' => [
+            'getUsers' => [
                 'pageSize' => 100,
                 'page' => 1,
+                'orderBy' => 'name',
+            ],
+            // 'addUser' => [
+            //     'userId' => null,
+            //     'role' => null,
+            // ],
+            // 'updateUser' => [
+            //     'role' => null,
+            // ],
+            'websites' => [
+                'pageSize' => 100,
+                'page' => 1,
+                'orderBy' => 'name',
             ],
         ];
     }
 
     public function users(string $id, array $data = []): ?array
     {
-        return UmamiApi::get($this->getPath($id, 'users'), $this->getData($data, 'users'))->json();
+        return UmamiApi::get($this->getPath($id, 'users'), $this->getData($data, 'getUsers'))->json();
     }
 
-    public function addUser(string $id, array $data = []): ?array
+    // NOTE: currently broken in API
+
+    // public function user(string $id, string $userId): ?array
+    // {
+    //     return UmamiApi::get($this->getPath($id, 'users', $userId))->json();
+    // }
+
+    // public function addUser(string $id, array $data = []): ?array
+    // {
+    //     return UmamiApi::post($this->getPath($id, 'users'), $this->getData($data, 'addUser'))->json();
+    // }
+
+    // public function updateUser(string $id, string $userId, array $data = []): ?array
+    // {
+    //     return UmamiApi::post($this->getPath($id, 'users', $userId), $this->getData($data, 'updateUser'))->json();
+    // }
+
+    public function removeUser(string $id, string $userId): bool
     {
-        // TODO: looks like only current user can add self?????
-        return null;
+        return UmamiApi::delete($this->getPath($id, 'users', $userId))->successful();
+    }
+
+    public function join(string $accessCode): ?array
+    {
+        return UmamiApi::post($this->getPath('join'), $this->getData([
+            'accessCode' => $accessCode,
+        ], 'join'))->json();
+    }
+
+    public function websites(string $id, array $data = []): ?array
+    {
+        return UmamiApi::get($this->getPath($id, 'websites'), $this->getData($data, 'websites'))->json();
     }
 }

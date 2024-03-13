@@ -19,6 +19,8 @@ class UmamiApi implements ApiInterface
 
     protected string $authToken;
 
+    protected array $headers = [];
+
     public function __construct() {
         $this->throwHttpExceptions = config('umami.http.exceptions');
         $this->url = $this->getConfig('account.url');
@@ -44,6 +46,17 @@ class UmamiApi implements ApiInterface
         ])->json('token');
     }
 
+    public function userAgent(?string $userAgent = null): UmamiApi
+    {
+        if (! empty($userAgent)) {
+            $this->headers['User-Agent'] = $userAgent;
+        } else {
+            unset($this->headers['User-Agent']);
+        }
+
+        return $this;
+    }
+
     public function get(string $endpoint, array $data = []): Response
     {
         return $this->sendRequest('get', $endpoint, $data);
@@ -67,6 +80,7 @@ class UmamiApi implements ApiInterface
     protected function sendRequest(string $method, string $endpoint, array $data): Response
     {
         return (! empty($this->authToken) ? Http::withToken($this->authToken) : Http::getFacadeRoot())
+            ->withHeaders($this->headers)
             ->{$method}($this->url.str($endpoint)->start('/'), $data)
             ->throwIf($this->throwHttpExceptions);
     }
