@@ -12,8 +12,6 @@ class EventData extends Resource
         $data = [
             'startAt' => null,
             'endAt' => null,
-            // 'unit' => 'day',
-            // 'timezone' => config('app.timezone'),
         ];
 
         return [

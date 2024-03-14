@@ -26,7 +26,7 @@ class Event extends Resource
             'payload' => $this->getData($data, 'send'),
         ]);
 
-        UmamiApi::userAgent();
+        UmamiApi::resetHeaders();
 
         return $response->json();
     }

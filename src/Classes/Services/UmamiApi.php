@@ -6,7 +6,6 @@ use Creative2\Umami\Contracts\ApiInterface;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 
-
 class UmamiApi implements ApiInterface
 {
     protected bool $throwHttpExceptions;
@@ -46,15 +45,16 @@ class UmamiApi implements ApiInterface
         ])->json('token');
     }
 
-    public function userAgent(?string $userAgent = null): UmamiApi
+    public function userAgent(string $userAgent): UmamiApi
     {
-        if (! empty($userAgent)) {
-            $this->headers['User-Agent'] = $userAgent;
-        } else {
-            unset($this->headers['User-Agent']);
-        }
+        $this->headers['User-Agent'] = $userAgent;
 
         return $this;
+    }
+
+    public function resetHeaders(): void
+    {
+        $this->headers = [];
     }
 
     public function get(string $endpoint, array $data = []): Response
