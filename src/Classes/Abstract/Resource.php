@@ -36,8 +36,10 @@ abstract class Resource
 
     protected function getData(array $data, string $action): array
     {
+        $defaultData = static::getDefaultData()[$action] ?? [];
+
         $sanitizedData = [
-            ...static::getDefaultData()[$action] ?? [],
+            ...$defaultData,
             ...$data,
         ];
 
@@ -47,7 +49,7 @@ abstract class Resource
             }
         }
 
-        $nullKeys = array_keys($sanitizedData, null, true);
+        $nullKeys = array_intersect(array_keys($sanitizedData, null, true), array_keys($defaultData));
 
         if (! empty($nullKeys)) {
             throw new MissingParameterException($action, $nullKeys);
