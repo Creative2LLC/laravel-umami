@@ -25,7 +25,6 @@ class Teams extends Resource implements RestfulInterface
             'getUsers' => [
                 'pageSize' => 100,
                 'page' => 1,
-                'orderBy' => 'name',
             ],
             // 'addUser' => [
             //     'userId' => null,
