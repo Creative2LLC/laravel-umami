@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Http;
 
 class UmamiApi implements ApiInterface
 {
+    protected bool $verify;
+
     protected bool $throwHttpExceptions;
 
     protected string $url;
@@ -21,6 +23,7 @@ class UmamiApi implements ApiInterface
     protected array $headers = [];
 
     public function __construct() {
+        $this->verify = config('umami.http.verify');
         $this->throwHttpExceptions = config('umami.http.exceptions');
         $this->url = $this->getConfig('account.url');
         $this->username = $this->getConfig('account.username');
@@ -81,6 +84,9 @@ class UmamiApi implements ApiInterface
     {
         return (! empty($this->authToken) ? Http::withToken($this->authToken) : Http::getFacadeRoot())
             ->withHeaders($this->headers)
+            ->withOptions([
+                'verify' => $this->verify,
+            ])
             ->{$method}($this->url.str($endpoint)->start('/'), $data)
             ->throwIf($this->throwHttpExceptions);
     }
