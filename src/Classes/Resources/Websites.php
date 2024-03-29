@@ -56,7 +56,7 @@ class Websites extends Resource implements RestfulInterface
 
     public function active(string $id): ?int
     {
-        return UmamiApi::get($this->getPath($id, 'active'))->json(0)['x'] ?? null;
+        return UmamiApi::get($this->getPath($id, 'active'))->json()['x'] ?? null;
     }
 
     public function events(string $id, array $data): ?array
